@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import BlogHeader from './BlogHeader';
 
 const Main = styled.main`
   max-width: 600px;
@@ -11,7 +12,12 @@ const Main = styled.main`
 function BlogLayout(props) {
   const { children } = props;
 
-  return <Main>{children}</Main>;
+  return (
+    <>
+      <BlogHeader />
+      <Main>{children}</Main>
+    </>
+  );
 }
 
 export default BlogLayout;

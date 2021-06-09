@@ -4,7 +4,9 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 const Article = styled.article`
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5eff5;
 `;
 
 const Header = styled.header`
@@ -31,9 +33,6 @@ const Content = styled.section`
 function Post(props) {
   const { post, preview } = props;
 
-  const content = DOMPurify.sanitize(post.content);
-  console.log(content);
-
   return (
     <Article>
       <Header>
@@ -42,12 +41,16 @@ function Post(props) {
           {' on '}
           <time dateTime={post.publish_date}>{post.publish_date}</time>
         </Meta>
-        <Title>{post.title}</Title>
+        <Link href={`/posts/${post.id}`}>
+          <a>
+            <Title>{post.title}</Title>
+          </a>
+        </Link>
       </Header>
       {!preview && (
         <Content
           dangerouslySetInnerHTML={{
-            __html: content,
+            __html: DOMPurify.sanitize(post.content),
           }}
         />
       )}
