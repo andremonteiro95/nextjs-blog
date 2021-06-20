@@ -69,7 +69,7 @@ function Post(props) {
           </>
         )}
       </Article>
-      {!preview && <Comments comments={comments} />}
+      {!preview && <Comments comments={comments} postId={post.id} />}
     </>
   );
 }

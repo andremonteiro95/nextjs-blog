@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
@@ -14,25 +14,31 @@ const Title = styled.h3`
 `;
 
 function Comments(props) {
-  const { comments } = props;
+  const { comments: propComments, postId } = props;
+  const [comments, setComments] = useState(propComments);
+
+  const onCommentAdded = (newComment) => {
+    setComments([...comments, newComment]);
+  };
+
   return (
     <Section>
       <Title>
         {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
       </Title>
       {comments
-        .filter((comment) => comment.parent_id === null)
+        .filter((comment) => comment.parent_id == null)
         .map((comment) => (
           <>
-            <Comment comment={comment} />
+            <Comment key={comment.id} comment={comment} />
             {comments
               .filter((childComment) => childComment.parent_id === comment.id)
               .map((childComment) => (
-                <Comment comment={childComment} child />
+                <Comment key={childComment.id} comment={childComment} child />
               ))}
           </>
         ))}
-      <CommentForm />
+      <CommentForm postId={postId} onCommentAdded={onCommentAdded} />
     </Section>
   );
 }

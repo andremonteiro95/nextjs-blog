@@ -147,6 +147,20 @@
       "user": "Natashia",
       "date": "2016-03-17",
       "content": "Nunc facilisis nisi vitae dapibus sodales. Proin vitae nunc turpis."
+    },
+    {
+      "user": "André",
+      "content": "Olé",
+      "postId": "2",
+      "date": "2021-6-20",
+      "id": 8
+    },
+    {
+      "user": "Hello",
+      "content": "Goodbye",
+      "postId": "2",
+      "date": "2021-6-20",
+      "id": 9
     }
   ]
 }
