@@ -18,7 +18,12 @@ const Header = styled.header`
 `;
 
 const Footer = styled.footer`
+  margin-top: 0.2rem;
   font-size: 0.9rem;
+`;
+
+const Bold = styled.span`
+  font-weight: 500;
 `;
 
 function Comment(props) {
@@ -30,7 +35,7 @@ function Comment(props) {
     <Wrapper>
       <Header>
         <Meta>
-          <b>{comment.user}</b>
+          <Bold>{comment.user}</Bold>
           {' on '}
           <time dateTime={comment.date}>{comment.date}</time>
         </Meta>
