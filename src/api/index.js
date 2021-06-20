@@ -49,11 +49,12 @@ async function getLatestCommentId() {
   }
 }
 
-export async function postComment(postId, { user, content }) {
+export async function postComment(postId, { user, content, parent_id }) {
   try {
     const body = {
       user,
       content,
+      parent_id,
       postId,
       date: getDateForComment(),
     };

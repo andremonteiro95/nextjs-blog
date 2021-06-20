@@ -27,8 +27,25 @@ const Button = styled.button`
   color: #ffffff;
 `;
 
+const ParentCommentInfo = styled.span`
+  display: flex;
+  align-items: center;
+  height: fit-content;
+`;
+
+const ClearIcon = styled.span`
+  cursor: pointer;
+  color: #dc3545;
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+
+  &:hover {
+    color: #bb2d3b;
+  }
+`;
+
 function CommentForm(props) {
-  const { postId, onCommentAdded } = props;
+  const { parentComment, postId, onCommentAdded, onParentClear } = props;
   const {
     register,
     handleSubmit,
@@ -37,7 +54,10 @@ function CommentForm(props) {
 
   const onSubmit = (data) => {
     console.log(data);
-    postComment(postId, data).then((res) => {
+    postComment(postId, {
+      ...data,
+      parent_id: parentComment ? parentComment.id : null,
+    }).then((res) => {
       onCommentAdded(res);
     });
   };
@@ -53,7 +73,18 @@ function CommentForm(props) {
         />
         <FormFooter>
           <Button type="submit">Post comment</Button>
-          Replying to John Doe
+          {parentComment && (
+            <ParentCommentInfo>
+              Replying to {parentComment.user}
+              <ClearIcon
+                onClick={() => {
+                  onParentClear();
+                }}
+              >
+                &#10006;
+              </ClearIcon>
+            </ParentCommentInfo>
+          )}
         </FormFooter>
       </form>
     </Container>

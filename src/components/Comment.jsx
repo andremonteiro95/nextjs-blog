@@ -22,7 +22,7 @@ const Footer = styled.footer`
 `;
 
 function Comment(props) {
-  const { child, comment } = props;
+  const { child, comment, onReplyClick } = props;
 
   const Wrapper = child ? ChildCommentWrapper : CommentWrapper;
 
@@ -39,7 +39,13 @@ function Comment(props) {
         <p>{comment.content}</p>
       </div>
       <Footer>
-        <a>Reply</a>
+        <a
+          onClick={() => {
+            onReplyClick(comment.id);
+          }}
+        >
+          Reply
+        </a>
       </Footer>
     </Wrapper>
   );

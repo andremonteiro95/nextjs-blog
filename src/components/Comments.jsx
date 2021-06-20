@@ -16,9 +16,19 @@ const Title = styled.h3`
 function Comments(props) {
   const { comments: propComments, postId } = props;
   const [comments, setComments] = useState(propComments);
+  const [parentComment, setParentComment] = useState(null);
 
   const onCommentAdded = (newComment) => {
     setComments([...comments, newComment]);
+    onParentClear();
+  };
+
+  const onReplyClick = (commentId) => {
+    setParentComment(comments.find((comment) => comment.id === commentId));
+  };
+
+  const onParentClear = () => {
+    setParentComment(null);
   };
 
   return (
@@ -30,15 +40,29 @@ function Comments(props) {
         .filter((comment) => comment.parent_id == null)
         .map((comment) => (
           <>
-            <Comment key={comment.id} comment={comment} />
+            <Comment
+              key={comment.id}
+              comment={comment}
+              onReplyClick={onReplyClick}
+            />
             {comments
               .filter((childComment) => childComment.parent_id === comment.id)
               .map((childComment) => (
-                <Comment key={childComment.id} comment={childComment} child />
+                <Comment
+                  child
+                  key={childComment.id}
+                  comment={childComment}
+                  onReplyClick={onReplyClick}
+                />
               ))}
           </>
         ))}
-      <CommentForm postId={postId} onCommentAdded={onCommentAdded} />
+      <CommentForm
+        parentComment={parentComment}
+        postId={postId}
+        onCommentAdded={onCommentAdded}
+        onParentClear={onParentClear}
+      />
     </Section>
   );
 }
