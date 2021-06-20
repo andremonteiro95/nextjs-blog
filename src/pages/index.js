@@ -1,15 +1,16 @@
 import Head from 'next/head';
-import { getPosts } from '../api/posts';
+import { getPosts } from '../api';
 import BlogLayout from '../components/BlogLayout';
 import Post from '../components/Post';
+import { BLOG_DESCRIPTION, BLOG_TITLE } from '../constants';
 
 export default function Home(props) {
   const { posts } = props;
   return (
     <>
       <Head>
-        <title>My Awesome Blog</title>
-        <meta name="description" content="Mock blog!" />
+        <title>{BLOG_TITLE}</title>
+        <meta name="description" content={BLOG_DESCRIPTION} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

@@ -23,3 +23,13 @@ export async function getPostById(id) {
     return undefined;
   }
 }
+
+export async function getCommentsByPostId(id) {
+  try {
+    const res = await fetch(`http://localhost:9000/posts/${id}/comments`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    return undefined;
+  }
+}

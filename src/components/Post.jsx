@@ -2,6 +2,7 @@ import DOMPurify from 'isomorphic-dompurify';
 import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import Comments from './Comments';
 
 const Article = styled.article`
   margin-bottom: 2rem;
@@ -31,42 +32,45 @@ const Content = styled.section`
 `;
 
 function Post(props) {
-  const { post, preview } = props;
+  const { comments, post, preview } = props;
 
   return (
-    <Article>
-      <Header>
-        <Meta>
-          {post.author}
-          {' on '}
-          <time dateTime={post.publish_date}>{post.publish_date}</time>
-        </Meta>
-        <Link href={`/posts/${post.id}`}>
-          <a>
-            <Title>{post.title}</Title>
-          </a>
-        </Link>
-      </Header>
-      {!preview && (
-        <Content
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(post.content),
-          }}
-        />
-      )}
-      {preview && (
-        <>
-          <Content>
-            <p>{post.description}</p>
-          </Content>
-          <footer>
-            <Link href={`/posts/${post.id}`}>
-              <ReadMore>Continue reading &raquo;</ReadMore>
-            </Link>
-          </footer>
-        </>
-      )}
-    </Article>
+    <>
+      <Article>
+        <Header>
+          <Meta>
+            {post.author}
+            {' on '}
+            <time dateTime={post.publish_date}>{post.publish_date}</time>
+          </Meta>
+          <Link href={`/posts/${post.id}`}>
+            <a>
+              <Title>{post.title}</Title>
+            </a>
+          </Link>
+        </Header>
+        {!preview && (
+          <Content
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(post.content),
+            }}
+          />
+        )}
+        {preview && (
+          <>
+            <Content>
+              <p>{post.description}</p>
+            </Content>
+            <footer>
+              <Link href={`/posts/${post.id}`}>
+                <ReadMore>Continue reading &raquo;</ReadMore>
+              </Link>
+            </footer>
+          </>
+        )}
+      </Article>
+      {!preview && <Comments comments={comments} />}
+    </>
   );
 }
 

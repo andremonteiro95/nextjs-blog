@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
+import { BLOG_DESCRIPTION, BLOG_TITLE } from '../constants';
 
 const Header = styled.header`
   background-color: #445064;
@@ -37,10 +38,10 @@ function BlogHeader() {
     <Header>
       <Link href="/">
         <a>
-          <Title>My Awesome Blog</Title>
+          <Title>{BLOG_TITLE}</Title>
         </a>
       </Link>
-      <Description>This is a mock description</Description>
+      <Description>{BLOG_DESCRIPTION}</Description>
     </Header>
   );
 }
