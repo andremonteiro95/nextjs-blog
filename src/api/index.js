@@ -14,7 +14,6 @@ export async function getPosts(page = 1) {
 export async function getPostById(id) {
   const res = await fetch(`http://localhost:9000/posts/${id}`);
   const data = await res.json();
-  console.log(data);
 
   if (!data.id) {
     return undefined;
@@ -46,6 +45,5 @@ export async function postComment(postId, { user, content, parent_id }) {
     body: JSON.stringify(body),
   });
   const data = await res.json();
-  console.log(res);
   return data;
 }
