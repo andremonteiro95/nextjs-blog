@@ -7,10 +7,17 @@ import { BLOG_DESCRIPTION, BLOG_TITLE } from '../../constants';
 
 export default function BlogPage(props) {
   const { pagination, posts } = props;
+
+  const currentPage = pagination.next
+    ? pagination.next._page - 1
+    : pagination.last._page;
+
   return (
     <>
       <Head>
-        <title>{BLOG_TITLE}</title>
+        <title>
+          Page {currentPage} – {BLOG_TITLE}
+        </title>
         <meta name="description" content={BLOG_DESCRIPTION} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
