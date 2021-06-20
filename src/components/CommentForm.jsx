@@ -15,6 +15,8 @@ const Input = styled.input`
 const Textarea = styled.textarea`
   width: 100%;
   margin-top: 0.5rem;
+  resize: vertical;
+  min-height: 65px;
 `;
 
 const FormFooter = styled.div`
