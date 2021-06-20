@@ -12,6 +12,7 @@
     "isomorphic-dompurify": "^0.14.0",
     "json-server": "^0.14.0",
     "next": "10.2.3",
+    "parse-link-header": "^1.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.9.0",

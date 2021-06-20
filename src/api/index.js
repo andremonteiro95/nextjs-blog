@@ -1,12 +1,18 @@
 import { getDateForComment } from '../utils/date';
+import { POSTS_BY_PAGE } from '../constants';
+import parseLinkHeader from 'parse-link-header';
 
-export async function getPosts() {
+export async function getPosts(page = 1) {
   // TODO: Guardar url nas constantes
   try {
-    const res = await fetch(`http://localhost:9000/posts`);
-    const data = await res.json();
-    return data;
+    const res = await fetch(
+      `http://localhost:9000/posts?_sort=publish_date&_order=desc&_page=${page}&_limit=${POSTS_BY_PAGE}`,
+    );
+    const posts = await res.json();
+    const pagination = parseLinkHeader(res.headers.get('link'));
+    return { posts, pagination };
   } catch (err) {
+    console.log(err);
     return undefined;
   }
 }

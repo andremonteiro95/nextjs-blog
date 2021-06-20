@@ -53,7 +53,6 @@ function CommentForm(props) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     postComment(postId, {
       ...data,
       parent_id: parentComment ? parentComment.id : null,

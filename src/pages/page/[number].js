@@ -1,11 +1,11 @@
 import Head from 'next/head';
-import { getPosts } from '../api';
-import BlogLayout from '../components/BlogLayout';
-import Pagination from '../components/Pagination';
-import Post from '../components/Post';
-import { BLOG_DESCRIPTION, BLOG_TITLE } from '../constants';
+import { getPosts } from '../../api';
+import BlogLayout from '../../components/BlogLayout';
+import Pagination from '../../components/Pagination';
+import Post from '../../components/Post';
+import { BLOG_DESCRIPTION, BLOG_TITLE } from '../../constants';
 
-export default function Home(props) {
+export default function BlogPage(props) {
   const { pagination, posts } = props;
   return (
     <>
@@ -25,8 +25,9 @@ export default function Home(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const { pagination, posts } = await getPosts();
+export async function getServerSideProps({ params }) {
+  const { number } = params;
+  const { pagination, posts } = await getPosts(number);
   return {
     props: {
       pagination,
