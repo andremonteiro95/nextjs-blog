@@ -34,7 +34,24 @@ export default function BlogPage(props) {
 
 export async function getServerSideProps({ params }) {
   const { number } = params;
+
+  if (number < 2) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: true,
+      },
+    };
+  }
+
   const { pagination, posts } = await getPosts(number);
+
+  if (!pagination) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       pagination,

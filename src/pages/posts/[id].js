@@ -26,10 +26,15 @@ export default function PostPage(props) {
 export async function getServerSideProps({ params }) {
   const { id } = params;
 
-  const [post, comments] = await Promise.all([
-    getPostById(id),
-    getCommentsByPostId(id),
-  ]);
+  const post = await getPostById(id);
+
+  if (!post) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const comments = await getCommentsByPostId(id);
 
   return {
     props: {

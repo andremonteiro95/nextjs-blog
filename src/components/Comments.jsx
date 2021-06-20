@@ -39,12 +39,8 @@ function Comments(props) {
       {comments
         .filter((comment) => comment.parent_id == null)
         .map((comment) => (
-          <>
-            <Comment
-              key={comment.id}
-              comment={comment}
-              onReplyClick={onReplyClick}
-            />
+          <div key={comment.id}>
+            <Comment comment={comment} onReplyClick={onReplyClick} />
             {comments
               .filter((childComment) => childComment.parent_id === comment.id)
               .map((childComment) => (
@@ -55,7 +51,7 @@ function Comments(props) {
                   onReplyClick={onReplyClick}
                 />
               ))}
-          </>
+          </div>
         ))}
       <CommentForm
         parentComment={parentComment}

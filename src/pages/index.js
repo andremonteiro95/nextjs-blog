@@ -15,7 +15,7 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <BlogLayout>
+      <BlogLayout largeHeader={true}>
         {posts.map((post) => (
           <Post key={post.id} post={post} preview />
         ))}

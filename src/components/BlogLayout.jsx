@@ -11,11 +11,11 @@ const Main = styled.main`
 `;
 
 function BlogLayout(props) {
-  const { children } = props;
+  const { children, largeHeader } = props;
 
   return (
     <>
-      <BlogHeader />
+      <BlogHeader large={largeHeader} />
       <Main>{children}</Main>
       <BlogFooter />
     </>
