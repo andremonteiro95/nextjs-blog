@@ -10,7 +10,7 @@ export default function PostPage(props) {
     <>
       <Head>
         <title>
-          {post.title} &dash; {BLOG_TITLE}
+          {post.title} – {BLOG_TITLE}
         </title>
         <meta name="description" content={post.description} />
         <link rel="icon" href="/favicon.ico" />
