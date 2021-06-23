@@ -25,7 +25,7 @@ export default function Home(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const { pagination, posts } = await getPosts();
   return {
     props: {

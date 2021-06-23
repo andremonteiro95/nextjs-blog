@@ -2,7 +2,7 @@ import DOMPurify from 'isomorphic-dompurify';
 import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import Comments from './Comments';
+import CommentSection from './CommentSection';
 
 const Article = styled.article`
   margin-bottom: 2rem;
@@ -69,7 +69,7 @@ function Post(props) {
           </>
         )}
       </Article>
-      {!preview && <Comments comments={comments} postId={post.id} />}
+      {!preview && <CommentSection comments={comments} postId={post.id} />}
     </>
   );
 }

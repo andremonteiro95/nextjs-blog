@@ -5,10 +5,6 @@ const CommentWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
-const ChildCommentWrapper = styled(CommentWrapper)`
-  padding-left: 3rem;
-`;
-
 const Meta = styled.span`
   color: #9eabb3;
 `;
@@ -27,12 +23,10 @@ const Bold = styled.span`
 `;
 
 function Comment(props) {
-  const { child, comment, onReplyClick } = props;
-
-  const Wrapper = child ? ChildCommentWrapper : CommentWrapper;
+  const { comment, onReplyClick } = props;
 
   return (
-    <Wrapper>
+    <CommentWrapper>
       <Header>
         <Meta>
           <Bold>{comment.user}</Bold>
@@ -52,7 +46,7 @@ function Comment(props) {
           Reply
         </a>
       </Footer>
-    </Wrapper>
+    </CommentWrapper>
   );
 }
 

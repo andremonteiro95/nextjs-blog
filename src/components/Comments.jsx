@@ -1,66 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Comment from './Comment';
-import CommentForm from './CommentForm';
-
-const Section = styled.section`
-  margin-bottom: 4rem;
-`;
-
-const Title = styled.h3`
-  font-size: 1.3rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-`;
 
 function Comments(props) {
-  const { comments: propComments, postId } = props;
-  const [comments, setComments] = useState(propComments);
-  const [parentComment, setParentComment] = useState(null);
-
-  const onCommentAdded = (newComment) => {
-    setComments([...comments, newComment]);
-    onParentClear();
-  };
+  const { comments, parentId, level = 0, setParentComment } = props;
 
   const onReplyClick = (commentId) => {
     setParentComment(comments.find((comment) => comment.id === commentId));
   };
 
-  const onParentClear = () => {
-    setParentComment(null);
-  };
-
-  return (
-    <Section>
-      <Title>
-        {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
-      </Title>
-      {comments
-        .filter((comment) => comment.parent_id == null)
-        .map((comment) => (
-          <div key={comment.id}>
-            <Comment comment={comment} onReplyClick={onReplyClick} />
-            {comments
-              .filter((childComment) => childComment.parent_id === comment.id)
-              .map((childComment) => (
-                <Comment
-                  child
-                  key={childComment.id}
-                  comment={childComment}
-                  onReplyClick={onReplyClick}
-                />
-              ))}
-          </div>
-        ))}
-      <CommentForm
-        parentComment={parentComment}
-        postId={postId}
-        onCommentAdded={onCommentAdded}
-        onParentClear={onParentClear}
-      />
-    </Section>
+  const filteredComments = comments.filter((comment) =>
+    parentId ? comment.parent_id === parentId : comment.parent_id == null,
   );
+
+  const Container = styled.div`
+    padding-left: ${level > 0 ? '3' : '0'}rem;
+  `;
+
+  return filteredComments.map((comment) => (
+    <Container key={comment.id}>
+      <Comment comment={comment} onReplyClick={onReplyClick} />
+      <Comments
+        comments={comments}
+        parentId={comment.id}
+        level={level + 1}
+        setParentComment={setParentComment}
+      />
+    </Container>
+  ));
 }
 
 export default Comments;
